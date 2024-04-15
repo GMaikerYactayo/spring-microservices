@@ -1,0 +1,12 @@
+server:
+  port: 8888
+spring:
+  application:
+    name: config-service
+  cloud:
+    config:
+      server:
+        git:
+          default-label: main
+          uri: https://github.com/GMaikerYactayo/spring-microservices
+          search-paths: config-data
