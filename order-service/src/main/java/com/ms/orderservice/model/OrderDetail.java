@@ -2,7 +2,6 @@ package com.ms.orderservice.model;
 
 import jakarta.persistence.*;
 import lombok.Data;
-import org.hibernate.annotations.Cascade;
 
 import java.math.BigDecimal;
 
