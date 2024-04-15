@@ -4,7 +4,7 @@ server:
 eureka:
   client:
     fetch-registry: true
-    register-with-eureka: false
+    register-with-eureka: true
     service-url:
       default-zone: http://localhost:8761/eureka
     instance:
@@ -18,10 +18,10 @@ spring:
           enabled: true
       routes:
         - id: product-service
-          uri: 'http://localhost:8082'
+          uri: lb://PRODUCT-SERVICE
           predicates:
             - Path=/api/v1/**
         - id: order-service
-          uri: 'http://localhost:8081'
+          uri: lb://ORDER-SERVICE
           predicates:
             - Path=/api/v1/**
