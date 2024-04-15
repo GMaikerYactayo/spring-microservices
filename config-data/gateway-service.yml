@@ -17,11 +17,11 @@ spring:
         locator:
           enabled: true
       routes:
-        - id: product-service
+        - id: product
           uri: lb://product-service
           predicates:
             - Path=/products/**
-        - id: order-service
+        - id: order
           uri: lb://order-service
           predicates:
             - Path=/api/v1/orders/**
