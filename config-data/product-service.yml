@@ -1,5 +1,14 @@
 server:
-  port: ${PORT:${SERVER_PORT:0}}
+  port: 9091
+
+eureka:
+  client:
+    fetch-registry: true
+    register-with-eureka: true
+    service-url:
+      default-zone: http://localhost:8761/eureka
+    instance:
+      hostname: ${spring.application.name}:${server.port}
 
 spring:
   datasource:
@@ -12,12 +21,3 @@ spring:
       ddl-auto: create-drop
     database: mysql
     database-platform: org.hibernate.dialect.MySQLDialect
-
-eureka:
-  client:
-    fetch-registry: true
-    register-with-eureka: true
-    service-url:
-      default-zone: http://localhost:8761/eureka
-    instance:
-      hostname: ${spring.application.name}:${spring.application.instance_id:${random.value}}
