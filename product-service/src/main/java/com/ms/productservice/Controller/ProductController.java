@@ -9,26 +9,25 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/v1")
+@RequestMapping("/api/v1/products")
 public class ProductController {
 
     @Autowired
     private ProductService productService;
 
-
-    @PostMapping("/products")
-    public ResponseEntity<Product> save(@RequestBody Product product) {
-        return ResponseEntity.ok(productService.save(product));
-    }
-
-    @GetMapping("/products")
+    @GetMapping
     public ResponseEntity<List<Product>> findAll() {
         return ResponseEntity.ok(productService.findAll());
     }
 
-    @GetMapping("/products/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<Product> findById(@PathVariable Long id) {
         return ResponseEntity.ok(productService.findById(id));
+    }
+
+    @PostMapping
+    public ResponseEntity<Product> save(@RequestBody Product product) {
+        return ResponseEntity.ok(productService.save(product));
     }
 
 }

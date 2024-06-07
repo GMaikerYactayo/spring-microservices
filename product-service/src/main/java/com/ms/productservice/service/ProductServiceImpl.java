@@ -15,11 +15,6 @@ public class ProductServiceImpl implements ProductService {
     private ProductRepository productRepository;
 
     @Override
-    public Product save(Product product) {
-        return productRepository.save(product);
-    }
-
-    @Override
     public List<Product> findAll() {
         return productRepository.findAll();
     }
@@ -33,4 +28,10 @@ public class ProductServiceImpl implements ProductService {
             throw new RuntimeException("Product with ID " + id + " not found");
         }
     }
+
+    @Override
+    public Product save(Product product) {
+        return productRepository.save(product);
+    }
+
 }

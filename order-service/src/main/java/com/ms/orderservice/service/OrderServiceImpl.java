@@ -15,11 +15,6 @@ public class OrderServiceImpl implements OrderService {
     private OrderRepository orderRepository;
 
     @Override
-    public Order save(Order order) {
-        return orderRepository.save(order);
-    }
-
-    @Override
     public List<Order> findAll() {
         return orderRepository.findAll();
     }
@@ -33,4 +28,10 @@ public class OrderServiceImpl implements OrderService {
             throw new RuntimeException("Order with ID " + id + " not found");
         }
     }
+
+    @Override
+    public Order save(Order order) {
+        return orderRepository.save(order);
+    }
+
 }
