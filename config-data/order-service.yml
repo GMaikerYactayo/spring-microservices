@@ -3,12 +3,12 @@ server:
 
 eureka:
   instance:
-    hostname: localhost
+    instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}}
   client:
     fetch-registry: true
     register-with-eureka: true
     service-url:
-      default-zone: http://${eureka.instance.hostname}:${server.port}/eureka/
+      default-zone: http://localhost:8761/eureka
 
 spring:
   datasource:
