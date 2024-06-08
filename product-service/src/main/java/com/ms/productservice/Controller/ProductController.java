@@ -30,4 +30,9 @@ public class ProductController {
         return ResponseEntity.ok(productService.save(product));
     }
 
+    @GetMapping("/exists/{productId}")
+    public Boolean existsProductById(@PathVariable Long productId) {
+        return productService.existsProductById(productId);
+    }
+
 }

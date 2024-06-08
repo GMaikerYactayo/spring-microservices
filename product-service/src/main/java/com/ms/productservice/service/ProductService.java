@@ -10,4 +10,6 @@ public interface ProductService {
     Product findById(Long id);
 
     Product save(Product product);
+
+    Boolean existsProductById(Long id);
 }

@@ -1,6 +1,7 @@
 package com.ms.orderservice.controller;
 
-import com.ms.orderservice.model.Order;
+import com.ms.orderservice.dto.OrderDTO;
+import com.ms.orderservice.response.OrderResponse;
 import com.ms.orderservice.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -16,17 +17,17 @@ public class OrderController {
     private OrderService orderService;
 
     @GetMapping
-    public ResponseEntity<List<Order>> findAll() {
+    public ResponseEntity<List<OrderResponse>> findAll() {
         return ResponseEntity.ok(orderService.findAll());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Order> findById(@PathVariable Long id) {
+    public ResponseEntity<OrderResponse> findById(@PathVariable Long id) {
         return ResponseEntity.ok(orderService.findById(id));
     }
 
     @PostMapping
-    public ResponseEntity<Order> save(@RequestBody Order order) {
+    public ResponseEntity<OrderDTO> save(@RequestBody OrderDTO order) {
         return ResponseEntity.ok(orderService.save(order));
     }
 

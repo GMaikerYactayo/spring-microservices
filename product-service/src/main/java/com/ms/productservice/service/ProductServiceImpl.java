@@ -34,4 +34,9 @@ public class ProductServiceImpl implements ProductService {
         return productRepository.save(product);
     }
 
+    @Override
+    public Boolean existsProductById(Long id) {
+        return productRepository.existsById(id);
+    }
+
 }
