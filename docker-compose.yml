@@ -1,0 +1,102 @@
+version: '3.8'
+
+services:
+  gateway-service:
+    image: gateway-service
+    restart: on-failure
+    container_name: gateway-service-container
+    build:
+      context: ./gateway-service
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    depends_on:
+      - config-service
+      - eureka-service
+
+  order-service:
+    image: order-service
+    restart: on-failure
+    container_name: order-service-container
+    build:
+      context: ./order-service
+      dockerfile: Dockerfile
+    ports:
+      - "8081:8081"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgresql:5432/order_service_db
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: postgres
+    depends_on:
+      - config-service
+      - postgresql
+      - eureka-service
+
+  product-service:
+    image: product-service
+    restart: on-failure
+    container_name: product-service-container
+    build:
+      context: ./product-service
+      dockerfile: Dockerfile
+    ports:
+      - "8082:8082"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/product_service_db
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: root
+    depends_on:
+      - config-service
+      - mysql
+      - eureka-service
+
+  eureka-service:
+    image: eureka-service
+    restart: on-failure
+    container_name: eureka-service-container
+    build:
+      context: ./eureka-service
+      dockerfile: Dockerfile
+    ports:
+      - "8761:8761"
+    depends_on:
+      - config-service
+
+  config-service:
+    image: config-service
+    restart: always
+    container_name: config-service-container
+    build:
+      context: ./config-service
+      dockerfile: Dockerfile
+    ports:
+      - "8888:8888"
+
+  postgresql:
+    image: postgres:15-alpine
+    restart: on-failure
+    container_name: postgres-container
+    environment:
+      POSTGRES_DB: order_service_db
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  mysql:
+    image: mysql:latest
+    restart: on-failure
+    container_name: mysql-container
+    environment:
+      MYSQL_DATABASE: product_service_db
+      MYSQL_ROOT_PASSWORD: root
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+
+volumes:
+  postgres_data:
+  mysql_data:
