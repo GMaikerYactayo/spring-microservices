@@ -15,7 +15,7 @@ services:
       SPRING_DATASOURCE_USERNAME: root
       SPRING_DATASOURCE_PASSWORD: root
       CONFIG_URI: http://config-service:8888
-      EUREKA_DEFAULT_ZONE: http://eureka-service:8761/eureka
+      EUREKA_INSTANCE: eureka-service
     depends_on:
       - config-service
       - mysql
@@ -63,6 +63,8 @@ services:
       - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
+    networks:
+      - microservice_net
 
   mysql:
     image: mysql:latest
@@ -75,6 +77,8 @@ services:
       - "3306:3306"
     volumes:
       - mysql_data:/var/lib/mysql
+    networks:
+      - microservice_net
 
 volumes:
   postgres_data:
