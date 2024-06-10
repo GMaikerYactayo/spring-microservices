@@ -1,27 +1,6 @@
 version: '3.8'
 
 services:
-  product-service:
-    image: product-service
-    restart: on-failure
-    container_name: product-service-container
-    build:
-      context: ./product-service
-      dockerfile: Dockerfile
-    ports:
-      - "8082:8082"
-    environment:
-      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/product_service_db
-      SPRING_DATASOURCE_USERNAME: root
-      SPRING_DATASOURCE_PASSWORD: root
-      CONFIG_URI: http://config-service:8888
-      EUREKA_DEFAULT_ZONE: http://eureka-service:8761/eureka
-    depends_on:
-      - config-service
-      - mysql
-      - eureka-service
-    networks:
-      - microservice_net
 
   eureka-service:
     image: eureka-service
