@@ -12,7 +12,7 @@ eureka:
 
 spring:
   datasource:
-    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5432/order_service_db}
+    url: ${SPRING_DATASOURCE_URL_POSTGRES:jdbc:postgresql://localhost:5432/order_service_db}
     username: postgres
     password: postgres
     driverClassName: org.postgresql.Driver
@@ -25,3 +25,12 @@ spring:
   sql:
     init:
       mode: always
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: always
