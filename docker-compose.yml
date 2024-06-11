@@ -16,6 +16,8 @@ services:
     depends_on:
       - config-service
       - eureka-service
+    networks:
+      - microservice_net
 
   order-service:
     image: order-service
