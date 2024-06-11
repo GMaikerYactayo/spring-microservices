@@ -16,7 +16,6 @@ services:
       SPRING_DATASOURCE_USERNAME: root
       SPRING_DATASOURCE_PASSWORD: root
       CONFIG_URI: http://config-service:8888
-      EUREKA_DEFAULT_ZONE: http://eureka-service:8761/eureka
     depends_on:
       - config-service
       - mysql
