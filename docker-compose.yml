@@ -1,6 +1,21 @@
 version: '3.8'
 
 services:
+  gateway-service:
+    image: gateway-service
+    restart: on-failure
+    container_name: gateway-service-container
+    build:
+      context: ./gateway-service
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    environment:
+      CONFIG_URI: http://config-service:8888
+      EUREKA_SERVER_URL: http://eureka-service:8761/eureka/
+    depends_on:
+      - config-service
+      - eureka-service
 
   order-service:
     image: order-service
@@ -16,6 +31,7 @@ services:
       POSTGRES_USERNAME: postgres
       POSTGRES_PASSWORD: postgres
       CONFIG_URI: http://config-service:8888
+      EUREKA_SERVER_URL: http://eureka-service:8761/eureka/
     depends_on:
       - config-service
       - postgresql
