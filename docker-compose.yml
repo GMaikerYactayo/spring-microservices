@@ -2,6 +2,28 @@ version: '3.8'
 
 services:
 
+  order-service:
+    image: order-service
+    restart: on-failure
+    container_name: order-service-container
+    build:
+      context: ./order-service
+      dockerfile: Dockerfile
+    ports:
+      - "8081:8081/tcp"
+    environment:
+      SSPRING_DATASOURCE_URL: jdbc:postgresql://postgresql:5432/order_service_db
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: postgres
+      CONFIG_URI: http://config-service:8888
+    depends_on:
+      - config-service
+      - postgresql
+      - eureka-service
+      - product-service
+    networks:
+      - microservice_net
+
   product-service:
     image: product-service
     restart: on-failure
