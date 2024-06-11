@@ -12,9 +12,9 @@ services:
     ports:
       - "8081:8081"
     environment:
-      SPRING_DATASOURCE_URL_POSTGRES: jdbc:postgresql://postgresql:5432/order_service_db
-      SPRING_DATASOURCE_USERNAME: postgres
-      SPRING_DATASOURCE_PASSWORD: postgres
+      POSTGRES_URL: jdbc:postgresql://postgresql:5432/order_service_db
+      POSTGRES_USERNAME: postgres
+      POSTGRES_PASSWORD: postgres
       CONFIG_URI: http://config-service:8888
     depends_on:
       - config-service
@@ -32,12 +32,13 @@ services:
       context: ./product-service
       dockerfile: Dockerfile
     ports:
-      - "8082:8082/tcp"
+      - "8082:8082"
     environment:
-      SPRING_DATASOURCE_URL_MYSQL: jdbc:mysql://mysql:3306/product_service_db
-      SPRING_DATASOURCE_USERNAME: root
-      SPRING_DATASOURCE_PASSWORD: root
+      MYSQL_URL: jdbc:mysql://mysql:3306/product_service_db
+      MYSQL_USERNAME: root
+      MYSQL_PASSWORD: root
       CONFIG_URI: http://config-service:8888
+      EUREKA_SERVER_URL: http://eureka-service:8761/eureka/
     depends_on:
       - config-service
       - mysql
@@ -53,7 +54,7 @@ services:
       context: ./eureka-service
       dockerfile: Dockerfile
     ports:
-      - "8761:8761/tcp"
+      - "8761:8761"
     depends_on:
       - config-service
     environment:

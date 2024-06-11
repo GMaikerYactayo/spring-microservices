@@ -8,13 +8,13 @@ eureka:
     instance:
       instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}}
     service-url:
-      default-zone: http://192.168.70.19:8761/eureka/
+      default-zone: ${EUREKA_SERVER_URL:http://localhost:8761/eureka/}
 
 spring:
   datasource:
-    url: ${SPRING_DATASOURCE_URL_MYSQL:jdbc:mysql://localhost:3306/product_service_db}
-    username: root
-    password: root
+    url: ${MYSQL_URL:jdbc:mysql://localhost:3306/product_service_db}
+    username: ${MYSQL_USERNAME:root}
+    password: ${MYSQL_PASSWORD:root}
     driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
     show-sql: true
