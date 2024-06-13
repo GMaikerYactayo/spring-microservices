@@ -2,6 +2,9 @@ server:
   port: 8082
 
 eureka:
+  instance:
+    instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}}
+    prefer-ip-address: true
   client:
     fetch-registry: true
     register-with-eureka: true
